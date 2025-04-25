@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 class UserController {
@@ -17,13 +18,16 @@ class UserController {
     if (userExists) {
       return res.render('auth/register', { error: 'Email já cadastrado!' });
     }
-
-    const user = new User({ name, email, password });
-
+    const salt = await bcrypt.genSalt(10);
+    const hashedPasword = await bcrypt.hash(password, salt);
+    const user = new User({
+      name,
+      email,
+      password: hashedPasword
+    });
 
     await user.save();
     res.redirect('/login');
-
   }
 
   static showLogin(req, res) {
