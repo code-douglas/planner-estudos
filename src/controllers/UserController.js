@@ -6,6 +6,10 @@ class UserController {
     res.render('auth/register');
   }
 
+  static showLogin(req, res) {
+    res.render('auth/login');
+  }
+
   static async createUser(req, res) {
     const { name, email, password, confirmPassword } = req.body;
 
@@ -28,10 +32,6 @@ class UserController {
 
     await user.save();
     res.redirect('/login');
-  }
-
-  static showLogin(req, res) {
-    res.render('auth/login');
   }
 
   static async loginUser(req, res) {}
