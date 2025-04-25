@@ -1,0 +1,18 @@
+<div class="auth-container">
+  <h2>Login</h2>
+
+  {{#if error}}
+    <div class="alert error">{{error}}</div>
+  {{/if}}
+
+  {{#if success}}
+    <div class="alert success">{{success}}</div>
+  {{/if}}
+
+  <form action="/login" method="POST">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Senha" required>
+    <button type="submit">Entrar</button>
+  </form>
+  <a href="/register">Criar nova conta</a>
+</div>
