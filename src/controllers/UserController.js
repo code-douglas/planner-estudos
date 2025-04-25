@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 class UserController {
@@ -34,7 +35,34 @@ class UserController {
     res.redirect('/login');
   }
 
-  static async loginUser(req, res) {}
+  static async loginUser(req, res) {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.render('auth/login', { error: 'Usuário não encontrado!' });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if(!password) {
+      return res.render('auth/login', { error: 'Senha incorreta!' });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, name: user.name },
+      process.env.SECRET,
+      { expiresIn: '2h' }
+    );
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 2 * 60 * 60 * 1000
+    });
+
+    res.redirect('/dashboard');
+  }
 };
 
 module.exports = UserController;
