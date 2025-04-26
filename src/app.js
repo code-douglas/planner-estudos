@@ -9,7 +9,10 @@ const cookieParser = require('cookie-parser');
 
 app.engine('handlebars', exphbs.engine({
   defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, 'views', 'layouts')
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  }
 }));
 
 app.use(cookieParser());

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Plan = require('../models/Plan');
 require('dotenv').config();
 
 class UserController {
@@ -112,8 +113,10 @@ class UserController {
 
   static async showDashboard(req, res) {
     try {
+      const plans = await Plan.find({ user: req.user.userId }).lean();
       const user = await User.findById(req.user.userId).select('-password');
-      res.render('user/dashboard', { user });
+
+      res.render('user/dashboard', { name: user.name, plans });
     } catch (err) {
       console.error('Dashboard error:', err);
       res.redirect('/login');

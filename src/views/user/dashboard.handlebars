@@ -1,12 +1,9 @@
 <link rel="stylesheet" href="/css/dashboard.css">
 
 <div class="dashboard-container">
-  <div class="dashboard-header">
-    <h2>Meus Planos de Estudo</h2>
-    <a href="/plans/create" class="btn-new-plan">
-      <span>+</span> Criar Novo Plano
-    </a>
-  </div>
+  <h1>Bem-vindo, {{this.name}}!</h1>
+
+  <a href="/plans/create" class="create-btn">Criar Novo Plano</a>
 
   {{#if plans.length}}
     <div class="plans-list">
@@ -14,16 +11,21 @@
         <div class="plan-card">
           <h3>{{this.title}}</h3>
           <p>{{this.description}}</p>
-          <a href="/plans/{{this._id}}/edit" class="btn-edit">Editar</a>
-          <form action="/plans/{{this._id}}/delete" method="POST" class="form-delete">
-            <button type="submit" class="btn-delete">Excluir</button>
-          </form>
+          <small>Criado em: {{this.createdAt}}</small>
+          {{!-- <p>Plano para: {{this.date}}</p> --}}
+
+          <div class="plan-actions">
+            <a href="/plans/edit/{{this._id}}" class="edit-btn">Editar</a>
+
+            <form action="/plans/delete/{{this._id}}" method="POST" style="display:inline;">
+              <button type="submit" class="delete-btn">Excluir</button>
+            </form>
+          </div>
+
         </div>
       {{/each}}
     </div>
   {{else}}
-    <div class="dashboard-content">
-      <p>Você ainda não cadastrou nenhum plano de estudo.</p>
-    </div>
+    <p>Você ainda não criou nenhum plano.</p>
   {{/if}}
 </div>

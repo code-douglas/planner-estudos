@@ -7,7 +7,7 @@ class PlanController {
   }
 
   static async createPlan(req, res) {
-    const { title, description } = req.body;
+    const { title, description, date } = req.body;
 
     if (!title || !description) {
       return res.render('plans/create', { error: 'Preencha todos os campos.' });
@@ -26,6 +26,7 @@ class PlanController {
       const plan = new Plan({
         title,
         description,
+        date,
         user: userId,
       });
 
@@ -37,6 +38,37 @@ class PlanController {
         return res.redirect('/login');
       }
       res.render('plans/create', { error: 'Ocorreu um erro ao criar o plano.' });
+    }
+  }
+
+  static async getDataPlanForEdit(req, res) {
+    try {
+      const plan = await Plan.findById(req.params.id).lean();
+      res.render('plans/edit', { plan });
+    } catch (err) {
+      console.error(err);
+      res.redirect('/dashboard');
+    }
+  }
+
+  static async updatePlan (req, res) {
+    try {
+      const { title, description, date } = req.body;
+      await Plan.findByIdAndUpdate(req.params.id, { title, description, date });
+      res.redirect('/dashboard');
+    } catch (err) {
+      console.error(err);
+      res.redirect('/dashboard');
+    }
+  }
+
+  static async deletePlan (req, res) {
+    try {
+      await Plan.findByIdAndDelete(req.params.id);
+      res.redirect('/dashboard');
+    } catch (err) {
+      console.error(err);
+      res.redirect('/dashboard');
     }
   }
 }
