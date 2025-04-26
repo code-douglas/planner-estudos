@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/plans.css">
+<div class="plan-container">
+  <h2>Criar Novo Plano</h2>
+
+  <div id="js-error" class="alert error" style="display:none;"></div>
+
+  {{#if error}}
+    <div class="alert error">{{error}}</div>
+  {{/if}}
+
+  <form action="/plans/create" method="POST" id="create-form">
+    <input type="text" name="title" placeholder="Título do plano" required>
+    <textarea name="description" placeholder="Descrição do plano" required></textarea>
+    <input type="date" name="date" required>
+    <button type="submit">Criar Plano</button>
+  </form>
+  
+  <a href="/dashboard">Voltar</a>
+</div>
+
+<script src="/js/create.js"></script>

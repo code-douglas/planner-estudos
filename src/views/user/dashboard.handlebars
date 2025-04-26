@@ -8,7 +8,22 @@
     </a>
   </div>
 
-  <div class="dashboard-content">
-    <p>Você ainda não cadastrou nenhum plano de estudo.</p>
-  </div>
+  {{#if plans.length}}
+    <div class="plans-list">
+      {{#each plans}}
+        <div class="plan-card">
+          <h3>{{this.title}}</h3>
+          <p>{{this.description}}</p>
+          <a href="/plans/{{this._id}}/edit" class="btn-edit">Editar</a>
+          <form action="/plans/{{this._id}}/delete" method="POST" class="form-delete">
+            <button type="submit" class="btn-delete">Excluir</button>
+          </form>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <div class="dashboard-content">
+      <p>Você ainda não cadastrou nenhum plano de estudo.</p>
+    </div>
+  {{/if}}
 </div>

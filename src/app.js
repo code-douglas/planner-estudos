@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const userRoutes = require('./routes/userRoutes.js');
+const plansRoutes = require('./routes/plansRoutes.js');
+
 app.use('/', userRoutes);
+app.use('/', plansRoutes);
 
 module.exports = app;
