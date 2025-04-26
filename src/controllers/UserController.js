@@ -18,6 +18,11 @@ class UserController {
       return res.render('auth/register', { error: 'As senhas não conferem.' });
     }
 
+    if(name.length < 5) {
+      return res.render('auth/register', { error: 'O nome deve conter no minimo 6 caracteres.' });
+
+    }
+
     const userExists = await User.findOne({ email });
 
     if (userExists) {
@@ -62,6 +67,15 @@ class UserController {
     });
 
     res.redirect('/dashboard');
+  }
+
+  static async showDashboard(req, res) {
+    res.render('user/dashboard', { user: req.user });
+  }
+
+  static logoutUser(req, res) {
+    res.clearCookie('token');
+    res.redirect('/login');
   }
 };
 

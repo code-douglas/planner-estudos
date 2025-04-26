@@ -1,5 +1,9 @@
+<link rel="stylesheet" href="/css/auth.css">
+
 <div class="auth-container">
   <h2>Registrar</h2>
+
+  <div id="js-error" class="alert error" style="display:none;"></div>
 
   {{#if error}}
     <div class="alert error">{{error}}</div>
@@ -8,13 +12,16 @@
   {{#if success}}
     <div class="alert success">{{success}}</div>
   {{/if}}
-  
+
   <form action="/register" method="POST">
-    <input type="text" name="name" placeholder="Nome" required>
+    <input type="text" name="name" placeholder="Nome" required minlength="3">
     <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Senha" required>
-    <input type="password" name="confirmPassword" placeholder="Confirme a senha" required>
+    <input type="password" name="password" placeholder="Senha" required minlength="6">
+    <input type="password" name="confirmPassword" placeholder="Confirme a senha" required minlength="6">
     <button type="submit">Criar conta</button>
   </form>
+
   <a href="/login">Já tem conta? Entrar</a>
 </div>
+
+<script src="/js/register.js"></script>
