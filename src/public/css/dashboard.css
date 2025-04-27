@@ -26,10 +26,6 @@
   margin-bottom: 30px;
 }
 
-.create-btn:hover {
-  background: linear-gradient(135deg, #1565C0, #1976D2);
-}
-
 .plans-list {
   display: flex;
   flex-direction: column;
@@ -79,6 +75,10 @@
   font-size: 14px;
 }
 
+.exit {
+  background: #C62828;
+}
+
 .edit-btn {
   background: linear-gradient(135deg, #1976D2, #1565C0);
 }
@@ -92,6 +92,10 @@
 }
 
 .delete-btn:hover {
+  background: linear-gradient(135deg, #D32F2F, #C62828);
+}
+
+.exit:hover {
   background: linear-gradient(135deg, #D32F2F, #C62828);
 }
 
